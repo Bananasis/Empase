@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd67c63adc2b1e43a628286531088d9, type: 3}
+  m_Name: 6
+  m_EditorClassIdentifier: 
+  borderShape: 1
+  BorderType: 1
+  fieldRadius: 100
+  _id: 5
+  nextLevels: 06000000
+  nextZone: 1
+  _spawners:
+  - {fileID: 11400000, guid: 4a486bbb75f382d4a9e8be64e151cb22, type: 2}
+  - {fileID: 11400000, guid: 76515af2cdeac244ab4f27ba9196258e, type: 2}
+  victory:
+  - {fileID: 11400000, guid: 80a5bf4f8411b4c4798e40bf26b7e3b1, type: 2}
+  defeat:
+  - {fileID: 11400000, guid: 5e405fd1ef208f54c9ab48248934823c, type: 2}
+  events:
+  - {fileID: 11400000, guid: 04abf1eccc7538e4db9e2297a10caef4, type: 2}
+  - {fileID: 11400000, guid: 456499e8366d4bc40a24e9bbac237346, type: 2}
+  massDefect: 1
+  cells: []
+  targets: []
+  playerCellData:
+    position: {x: 0, y: 29}
+    velocity: {x: 0, y: 0}
+    pinned: 0
+    _size: 0.5
+    _mass: 0
+    type: 0
+  playerEvents: []

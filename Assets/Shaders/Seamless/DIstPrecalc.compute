@@ -1,0 +1,26 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+
+int width;
+int height;
+int center_X;
+int center_Y;
+RWTexture2D<float4> result;
+
+
+[numthreads(32,32,1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    float2 dir = float2(center_X, center_Y) - id.xy;
+    float magn = length(dir);
+    if (magn < 0.5)
+    {
+        result[id.xy] = float4(0, 0, 0, 0);
+        return;
+    }
+
+    result[id.xy] = float4(dir / (magn * magn), 1 / (magn * magn), 1);
+}

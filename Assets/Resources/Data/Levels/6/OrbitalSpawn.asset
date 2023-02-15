@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee3ada84000e4062b88532b88aaaf2c6, type: 3}
+  m_Name: OrbitalSpawn
+  m_EditorClassIdentifier: 
+  isLevelGoal: 0
+  wallCollision: 0
+  cellCollision: 0
+  shrinkCompensate: 0.99
+  minSize: 0.1
+  massDistribution:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.00078582764
+      value: 0.171875
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.7401745
+      value: 0.34819704
+      inSlope: 1.0000001
+      outSlope: 1.0000001
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  orbitalDistribution:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0070991516
+      value: 0.3205719
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.42851314
+      value: 0.23439068
+      inSlope: -0.313197
+      outSlope: -0.313197
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.46313378
+      value: 0.984916
+      inSlope: 1.3360887
+      outSlope: 1.3360887
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49111527
+      value: 0.20961529
+      inSlope: 0.4665567
+      outSlope: 0.4665567
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6418506
+      value: 0.3458069
+      inSlope: 1.4186842
+      outSlope: 1.4186842
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7279774
+      value: 0.31657624
+      inSlope: 0.3724679
+      outSlope: 0.3724679
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.81397355
+      value: 0.26903474
+      inSlope: 3.0218585
+      outSlope: 3.0218585
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99243164
+      value: 0.2856903
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxSize: 2
+  maxIterations: 1000
+  number: 1061
+  possibleTypes: 00000000
+  uniform: 0
+  minOrbit: 0.1
+  maxOrbit: 0.9
+  orbitalSpeedMultiplier: 8.65
+  orbitalSpeedShift: 3
+  rotationalCenter: {x: 0, y: 0}

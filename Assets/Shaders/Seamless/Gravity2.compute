@@ -1,0 +1,46 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+#pragma kernel Clear
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+int mass_dot_count;
+float delta_time;
+int width;
+int height;
+
+struct mass_dot
+{
+    float2 pos;
+    float gravitationalMass;
+    float attraction;
+    float rotation;
+    float inertialMass;
+};
+
+float time;
+RWTexture2D<float4> result;
+RWTexture2D<float4> lookUp;
+RWStructuredBuffer<mass_dot> mass_dots;
+
+float random(float2 uv)
+{
+    return frac(sin(dot(uv, float2(12.9898, 78.233))) * 43758.5453123);
+}
+
+[numthreads(32,32,1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    result[id.xy] = float4(0, 0, 0, 1);
+    for (int i = 0; i < mass_dot_count; i++)
+    {
+        float2 dir = mass_dots[i].pos - id.xy;
+        float magSqr = mass_dots[i].gravitationalMass/(dir.x * dir.x + dir.y * dir.y);
+        
+        result[id.xy] += float4(normalize(dir) * magSqr, magSqr, 0);
+    }
+}
+
+[numthreads(32,32,1)]
+void Clear(uint3 id : SV_DispatchThreadID)
+{
+}

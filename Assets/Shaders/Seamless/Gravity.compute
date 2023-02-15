@@ -1,0 +1,40 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+int mass_dot_count;
+float delta_time;
+
+struct mass_dot
+{
+    float2 pos;
+    float gravitationalMass;
+    float attraction;
+    float rotation;
+    float inertialMass;
+};
+
+RWStructuredBuffer<mass_dot> mass_dots;
+RWStructuredBuffer<float2> accelerations;
+
+[numthreads(32,32,1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+
+
+    for (int2 ij = id.xy; ij.x <mass_dot_count ; ij.x+=1024)
+    {
+        for ( ij.y = id.y; ij.y < mass_dot_count; ij.y+=1024)
+        {
+            const float2 vec = mass_dots[ij.y].pos - mass_dots[ij.x].pos;
+            const float2 dir = normalize(vec);
+            const float dist = length(vec);
+            if (dist < 0.5) continue;
+            float2 force = dir * mass_dots[ij.x].inertialMass * mass_dots[ij.y].gravitationalMass / (dist); //*dist);
+            force = force * mass_dots[ij.y].attraction + float2(force.y, -force.x) * mass_dots[ij.y].rotation;
+            accelerations[i] += force;
+        }
+
+    }
+}
