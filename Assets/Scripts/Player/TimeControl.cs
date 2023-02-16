@@ -24,8 +24,8 @@ public class TimeControl : TimeDialator, IShiftAbility
         slider.gameObject.SetActive(true);
         slider.minValue = Mathf.Log(minScale) / log2;
         slider.maxValue = Mathf.Log(maxScale) / log2;
-        slider.value = Mathf.Log(dialation) / log2;
         dialation = 1;
+        slider.value = Mathf.Log(dialation) / log2;
         connection = _inputProvider.OnScrollShift.Subscribe((delta) =>
         {
             dialation = Mathf.Clamp(dialation * (1 + delta.y / 5), minScale, maxScale);

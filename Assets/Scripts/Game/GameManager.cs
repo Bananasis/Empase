@@ -25,10 +25,10 @@ public partial class GameManager : MonoBehaviour
     public void Awake()
     {
         MasterSoundOn = new PlayerPrefBool("MasterSoundON", true);
-        MasterSoundVolume = new PlayerPrefFloat("MasterSoundVolume", 1);
+        MasterSoundVolume = new PlayerPrefFloat("MasterSoundVolume", 0.4f);
         SoundOn = new PlayerPrefDictionary<TrackType, bool>("SoundOn", true,
             Enum.GetValues(typeof(TrackType)).Cast<TrackType>().ToList());
-        SoundVolume = new PlayerPrefDictionary<TrackType, float>("SoundVolume", 0.5f,
+        SoundVolume = new PlayerPrefDictionary<TrackType, float>("SoundVolume", 0.4f,
             Enum.GetValues(typeof(TrackType)).Cast<TrackType>().ToList());
         Levels = new PlayerPrefEnumList<LevelCompletion>("Levels", LevelCompletion.Closed, 10);
         CurrentLevel = new PlayerPrefInt("CurLevel");

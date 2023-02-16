@@ -13,14 +13,14 @@ public class MainMenuWindow : AlphaWindow
     [SerializeField] private Button settings;
     [SerializeField] private Button cell;
 
+    [SerializeField] private Button credits;
     // Start is called before the first frame update
-    
+
     public override void Init()
     {
         base.Init();
         play.onClick.AddListener(() =>
         {
-            
             if (_gameManager.CurrentLevel.val == -1)
             {
                 _windowManager.OpenWindow(WindowType.Levels);
@@ -32,7 +32,7 @@ public class MainMenuWindow : AlphaWindow
                     _levelLoader.LoadLevel(_gameManager.CurrentLevel.val,
                         () => _windowManager.OpenWindow(WindowType.GameplayUI, true)));
         });
-       
+        credits.onClick.AddListener(() => _windowManager.OpenWindow(WindowType.Credits));
         achievements.onClick.AddListener(() => _windowManager.OpenWindow(WindowType.Achievements));
         levels.onClick.AddListener(() => _windowManager.OpenWindow(WindowType.Levels));
         settings.onClick.AddListener(() => _windowManager.OpenWindow(WindowType.Settings));

@@ -133,5 +133,6 @@ public enum WindowType
     Settings,
     Cell,
     GameplayUI,
-    Loading
+    Loading,
+    Credits
 }
