@@ -9,7 +9,7 @@ using Zenject;
 public class AchievementEvent : GameEvent
 {
     [Inject] private GameManager _gameManager;
-
+    [Inject] private AudioManager _audioManager;
 
     protected override IAnnouncement _announcement => announcement;
     private Announcement announcement;
@@ -28,6 +28,7 @@ public class AchievementEvent : GameEvent
         {
             if (!b.Item2) return;
             var data = achievementDict[b.Item1];
+            
             announcement = new Announcement
             {
                 PopupDatas = new List<PopupData>
@@ -36,6 +37,7 @@ public class AchievementEvent : GameEvent
                     new PopupData {type = PopupType.Unlock, duration = 3, text = "Achievement unlocked!", vol = true}
                 }
             };
+            _audioManager.Play(TrackEnum.Achievement);
             OnEvent.Invoke();
         });
     }

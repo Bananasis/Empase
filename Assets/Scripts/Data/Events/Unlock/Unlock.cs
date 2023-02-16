@@ -33,6 +33,7 @@ public class Unlock : GameEvent
 {
     [SerializeField] private List<PropulsionUnlockData> propulsion;
     [SerializeField] private List<ShiftTextUnlockData> shift;
+    [Inject] private AudioManager _audioManager;
     [Inject] private GameManager _gameManager;
     public Dictionary<ShiftType, ShiftTextUnlockData> shiftDict = new Dictionary<ShiftType, ShiftTextUnlockData>();
 
@@ -65,6 +66,7 @@ public class Unlock : GameEvent
                     new PopupData {type = PopupType.Unlock, duration = 5, text = shiftDict[b.Item1].text}
                 }
             };
+            _audioManager.Play(TrackEnum.Unlock);
             OnEvent.Invoke();
         });
 
@@ -78,6 +80,7 @@ public class Unlock : GameEvent
                     new PopupData {type = PopupType.Unlock, duration = 5, text = propulsionDict[b.Item1].text}
                 }
             };
+            _audioManager.Play(TrackEnum.Unlock);
             OnEvent.Invoke();
         });
     }

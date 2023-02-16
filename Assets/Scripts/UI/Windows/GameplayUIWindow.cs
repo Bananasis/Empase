@@ -10,6 +10,7 @@ using Zenject;
 public class GameplayUIWindow : AlphaWindow
 {
     [Inject] private ILevelLoader _levelLoader;
+    [Inject] private ILevelManager _levelManager;
     [SerializeField] private Button pause;
     
     public override void Init()
