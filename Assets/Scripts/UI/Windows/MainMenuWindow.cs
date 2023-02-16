@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -13,12 +14,13 @@ public class MainMenuWindow : AlphaWindow
     [SerializeField] private Button cell;
 
     // Start is called before the first frame update
+    
     public override void Init()
     {
         base.Init();
-
         play.onClick.AddListener(() =>
         {
+            
             if (_gameManager.CurrentLevel.val == -1)
             {
                 _windowManager.OpenWindow(WindowType.Levels);
@@ -66,6 +68,5 @@ public class MainMenuWindow : AlphaWindow
         shortcuts[KeyCode.A] = achievements.onClick.Invoke;
         shortcuts[KeyCode.L] = levels.onClick.Invoke;
         shortcuts[KeyCode.C] = cell.onClick.Invoke;
-        //  cell.onClick.AddListener(() =>WindowManager.instance.OpenWindow(WindowType.));//todo
     }
 }

@@ -8,6 +8,7 @@ using Zenject;
 public class PredictionController : MonoBehaviour
 {
     [SerializeField] private LineRenderer lr;
+    [SerializeField] private float widthMultiplier = 0.05f;
     [SerializeField] private int sampleSize = 10;
     [SerializeField] private float deltaTime = 0.1f;
     [SerializeField] private float sampleTime = 1;
@@ -32,7 +33,8 @@ public class PredictionController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        lr.startWidth = cell.cData.size*widthMultiplier;
+        lr.endWidth = cell.cData.size*widthMultiplier;
         var pos = transform.position;
         dots[0] = pos;
         var timePassed = 0f;

@@ -7,7 +7,10 @@ using Zenject;
 
 public partial class GameManager : MonoBehaviour
 {
-    public PlayerPrefBool SoundOn;
+    public PlayerPrefDictionary<TrackType, bool> SoundOn;
+    public PlayerPrefDictionary<TrackType, float> SoundVolume;
+    public PlayerPrefBool MasterSoundOn;
+    public PlayerPrefFloat MasterSoundVolume;
     public PlayerPrefEnumList<LevelCompletion> Levels;
     public PlayerPrefDictionary<ShiftType, bool> ShiftAbilities;
     public PlayerPrefDictionary<PropulsionType, bool> MouseAbilities;
@@ -21,7 +24,12 @@ public partial class GameManager : MonoBehaviour
 
     public void Awake()
     {
-        SoundOn = new PlayerPrefBool("SoundOn", true);
+        MasterSoundOn = new PlayerPrefBool("MasterSoundON", true);
+        MasterSoundVolume = new PlayerPrefFloat("MasterSoundVolume", 1);
+        SoundOn = new PlayerPrefDictionary<TrackType, bool>("SoundOn", true,
+            Enum.GetValues(typeof(TrackType)).Cast<TrackType>().ToList());
+        SoundVolume = new PlayerPrefDictionary<TrackType, float>("SoundVolume", 0.5f,
+            Enum.GetValues(typeof(TrackType)).Cast<TrackType>().ToList());
         Levels = new PlayerPrefEnumList<LevelCompletion>("Levels", LevelCompletion.Closed, 10);
         CurrentLevel = new PlayerPrefInt("CurLevel");
         LastOpenZone = new PlayerPrefInt("OpenZone");

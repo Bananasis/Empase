@@ -36,6 +36,11 @@ public class AchievementPanel : MonoBehaviour
         _graphicRaycaster.sortingOrder = order;
     }
 
+    private void OnEnable()
+    {
+        //unity sometimes forgets  forgets
+    }
+
     public void Update()
     {
         _image.material.SetFloat("Gray", gray);

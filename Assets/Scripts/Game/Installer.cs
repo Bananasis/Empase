@@ -16,6 +16,7 @@ public class Installer : MonoInstaller
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private PopupManager _popupManage;
     [SerializeField] private EventManager _eventManager;
+    [SerializeField] private AudioManager _audioManager;
     public override void InstallBindings()
     {
         Container.Bind<ILevelManager>().To<ILevelManager>().FromInstance(_levelManager).AsSingle();
@@ -38,11 +39,13 @@ public class Installer : MonoInstaller
         Container.Bind<GameManager>().To<GameManager>().FromInstance(_gameManager).AsSingle();
         Container.Bind<PopupManager>().To<PopupManager>().FromInstance(_popupManage).AsSingle();
         Container.Bind<EventManager>().To<EventManager>().FromInstance(_eventManager).AsSingle();
+        Container.Bind<AudioManager>().To<AudioManager>().FromInstance(_audioManager).AsSingle();
         var scriptables = Resources.LoadAll("Data", typeof(ScriptableObject));
    
-        foreach (ScriptableObject scriptObject in scriptables)
+        foreach (var o in scriptables)
         {
-            Container.QueueForInject(scriptObject);  
+            var scriptObject = (ScriptableObject) o;
+            Container.QueueForInject(scriptObject);
         }
         
     }
