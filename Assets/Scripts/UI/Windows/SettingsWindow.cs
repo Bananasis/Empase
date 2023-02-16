@@ -9,7 +9,7 @@ public class SettingsWindow : AlphaWindow
     [Inject] private GameManager _gameManager;
     [SerializeField] private List<Slider> _soundSliders = new List<Slider>();
     [SerializeField] private List<Toggle> _soundToggle = new List<Toggle>();
-
+    [SerializeField] private Button delete;
     public override void Init()
     {
         base.Init();
@@ -46,5 +46,7 @@ public class SettingsWindow : AlphaWindow
         _soundToggle[3].isOn = _gameManager.SoundOn[TrackType.UiEffect];
         _gameManager.SoundOn.GetEvent(TrackType.UiEffect).AddListener((v) => _soundToggle[3].isOn = v);
         _soundToggle[3].onValueChanged.AddListener((v) => _gameManager.SoundOn[TrackType.UiEffect] = v);
+
+        delete.onClick.AddListener(() => _gameManager.ResetSave());
     }
 }

@@ -66,6 +66,11 @@ public partial class GameManager : MonoBehaviour
     {
         PlayerPrefs.Save();
     }
+    
+    public void ResetSave()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 }
 
 public enum LevelCompletion

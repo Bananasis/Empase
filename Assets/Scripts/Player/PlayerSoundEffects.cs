@@ -18,6 +18,7 @@ public class PlayerSoundEffects : MonoBehaviour
     private UnityEvent update = new UnityEvent();
     private AudioSource onAbsorbed;
     private AudioSource onAbsorb;
+    private float deathCooldown;
 
     private void Start()
     {
@@ -34,13 +35,17 @@ public class PlayerSoundEffects : MonoBehaviour
         onAbsorbed.loop = true;
         player.OnConsume.AddListener((_) =>
         {
+            if (deathCooldown > 0) return;
             death.Stop();
             death.Play();
+            deathCooldown = 1;
         });
         player.OnConsumed.AddListener((_) =>
         {
+            if (deathCooldown > 0) return;
             death.Stop();
             death.Play();
+            deathCooldown = 1;
         });
 
         player.OnSizeChange.Subscribe(tuple =>
@@ -68,6 +73,7 @@ public class PlayerSoundEffects : MonoBehaviour
     {
         absorb = Mathf.Clamp01(absorb - Time.fixedDeltaTime * 10);
         absorbed = Mathf.Clamp01(absorbed - Time.fixedDeltaTime * 10);
+        deathCooldown =  Mathf.Clamp01(deathCooldown - Time.fixedDeltaTime * 20);
         update.Invoke();
     }
 
