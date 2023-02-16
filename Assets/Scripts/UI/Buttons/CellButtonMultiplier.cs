@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 
 [RequireComponent(typeof(Image))]
-
 public class CellButtonMultiplier : MonoBehaviour
 {
     public float weightMultiplier;
@@ -23,7 +22,6 @@ public class CellButtonMultiplier : MonoBehaviour
     {
         image = GetComponent<Image>();
         image.material = new Material(image.material);
-        
     }
 
     // Update is called once per frame
@@ -31,10 +29,13 @@ public class CellButtonMultiplier : MonoBehaviour
     {
         image.material.SetFloat(WeightMultiplier, weightMultiplier - (passed ? 0.2f : 0));
         image.material.SetFloat(Dencity, dencityMultiplier);
+        image.material.SetFloat("_id", _id * 1000);
     }
+
+    private int _id = 0;
 
     public void SetId(int id)
     {
-        image.material.SetFloat("Id", id*1000);
+        _id = id;
     }
 }

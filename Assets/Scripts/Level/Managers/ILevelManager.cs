@@ -8,6 +8,7 @@ public interface ILevelManager
     void SetPause(bool p0);
     UnityEvent<float> OnLevelTick { get; }
     public UnityEvent<LevelState> OnLevelStateChange { get; }
+    UnityEvent<PauseState> OnPauseState { get; }
 
     public void Loose();
     public void Win();
@@ -23,9 +24,22 @@ public interface ILevelLoader
 
 public partial class LevelManager : ILevelManager, ILevelLoader
 {
+    public UnityEvent<PauseState> OnPauseState { get; } = new UnityEvent<PauseState>();
     public UnityEvent<LevelState> OnLevelStateChange { get; } = new UnityEvent<LevelState>();
     public UnityEvent<float> OnLevelTick { get; } = new UnityEvent<float>();
-    public PauseState paused { get; private set; } = PauseState.Play;
+
+    public PauseState paused
+    {
+        get => _paused;
+        private set
+        {
+            if (_paused == value) return;
+            _paused = value;
+            OnPauseState.Invoke(_paused);
+        }
+    }
+
+    private PauseState _paused;
     public int targetsLeft { get; set; }
 
     public void LoadLevel(int levelId, Action onLoad = default)

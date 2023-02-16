@@ -122,12 +122,12 @@ public partial class LevelManager : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-        private void Update()
+    private void Update()
     {
         if (state != LevelState.Began) return;
         if (Input.GetKey(KeyCode.V))
             Win();
-            Continue();
+        Continue();
     }
 #endif
 
@@ -185,6 +185,7 @@ public partial class LevelManager : MonoBehaviour
                 yield break;
             }
 
+            timeScale = Mathf.Clamp(timeScale, 0, 1);
             Time.fixedDeltaTime = deltaTime * timeScale;
             Time.timeScale = timeScale;
             yield return null;

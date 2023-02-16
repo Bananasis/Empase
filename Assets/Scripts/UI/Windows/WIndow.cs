@@ -19,8 +19,8 @@ public class Window : MonoBehaviour
     public Dictionary<KeyCode, Action> shortcuts = new Dictionary<KeyCode, Action>();
     protected GraphicRaycaster _raycaster;
     protected CanvasGroup _canvasGroup;
-    public readonly UnityEvent OnWindowOpen = new UnityEvent();
-    public readonly UnityEvent OnWindowClose = new UnityEvent();
+    protected readonly UnityEvent OnWindowOpen = new UnityEvent();
+    protected readonly UnityEvent OnWindowClose = new UnityEvent();
     [Inject] protected IWindowManager _windowManager;
 
     public virtual void Init()

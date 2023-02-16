@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Utils;
 using Zenject;
 
@@ -10,6 +11,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private TrackHolder _trackHolder;
     [SerializeField] private Transform player;
     [Inject] private GameManager _gameManager;
+    [Inject] private ILevelManager _levelManager;
     private Dictionary<TrackEnum, AudioSource> audioSources = new Dictionary<TrackEnum, AudioSource>();
     private AudioSource CurOstAudioSource;
 
@@ -37,7 +39,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public AudioSource AddAudioSource(GameObject go, TrackEnum trackEnum, bool subscribe = true)
+    public AudioSource AddAudioSource(GameObject go, TrackEnum trackEnum, Func<float> volumeModifier = default,
+        Func<bool> muteModifier = default, UnityEvent updateVolume = default, UnityEvent updateMute = default)
     {
         var track = _trackHolder.trackDict[trackEnum];
         var audioSource = go.AddComponent<AudioSource>();
@@ -45,18 +48,22 @@ public class AudioManager : MonoBehaviour
         audioSource.pitch = track.pitch;
         audioSource.volume = track.volume * _gameManager.SoundVolume[track.type] * _gameManager.MasterSoundVolume.val;
         audioSource.mute = !_gameManager.SoundOn[track.type] || !_gameManager.MasterSoundOn.val;
-        if (!subscribe) return audioSource;
-        {
-            var audioSourceCapture = audioSource;
-            _gameManager.SoundVolume.GetEvent(track.type)
-                .AddListener((v) => audioSourceCapture.volume = v * _gameManager.MasterSoundVolume.val);
-            _gameManager.SoundOn.GetEvent(track.type)
-                .AddListener((on) => audioSourceCapture.mute = !on || !_gameManager.MasterSoundOn.val);
-            _gameManager.MasterSoundVolume.OnChange
-                .AddListener((v) => audioSourceCapture.volume = v * _gameManager.SoundVolume[track.type]);
-            _gameManager.MasterSoundOn.OnChange
-                .AddListener((on) => audioSourceCapture.mute = !on || !_gameManager.SoundOn[track.type]);
-        }
+        var audioSourceCapture = audioSource;
+
+        Action setMute =
+            () => audioSourceCapture.mute = !_gameManager.SoundOn[track.type] || !_gameManager.MasterSoundOn.val ||
+                                            (muteModifier?.Invoke() ?? false);
+        Action setVolume = () =>
+            audioSourceCapture.volume = track.volume * _gameManager.SoundVolume[track.type] *
+                                        _gameManager.MasterSoundVolume.val *
+                                        (volumeModifier?.Invoke() ?? 1);
+        updateMute?.AddListener(() => setMute());
+        updateVolume?.AddListener(() => setVolume());
+        _gameManager.MasterSoundOn.OnChange.AddListener((_) => setMute());
+        _gameManager.SoundOn.GetEvent(track.type).AddListener((_) => setMute());
+        _gameManager.SoundVolume.GetEvent(track.type).AddListener((_) => setVolume());
+        _gameManager.MasterSoundVolume.OnChange.AddListener((_) => setVolume());
+
         return audioSource;
     }
 
@@ -70,13 +77,9 @@ public class AudioManager : MonoBehaviour
                 CurOstAudioSource = audioSources[trackEnum];
                 CurOstAudioSource.Play();
                 return CurOstAudioSource;
-                break;
-
             case {type: TrackType.UiEffect}:
                 audioSources[trackEnum].Play();
                 return audioSources[trackEnum];
-                ;
-                break;
         }
 
         throw new GameException($"Cant play sound effect {trackEnum}");

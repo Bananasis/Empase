@@ -26,6 +26,8 @@ public class AchievementPanel : MonoBehaviour
         _graphicRaycaster = GetComponent<Canvas>();
     }
 
+    private int _order;
+
     public void Set(Sprite sprite, string title, string description, int order, Achievement achievement)
     {
         _image.sprite = sprite;
@@ -34,11 +36,13 @@ public class AchievementPanel : MonoBehaviour
         _title.text = title;
         _description.text = description;
         _graphicRaycaster.sortingOrder = order;
+        _order = order;
     }
 
     private void OnEnable()
     {
-        //unity sometimes forgets  forgets
+        //unity sometimes forgets sorting layer
+        _graphicRaycaster.sortingOrder = _order;
     }
 
     public void Update()

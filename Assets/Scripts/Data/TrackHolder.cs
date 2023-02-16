@@ -49,5 +49,11 @@ public enum TrackEnum
     UIButton,
     MenuOst,
     UIBack,
-    LevelOst
+    LevelOst,
+    BlackHole,
+    Absorb,
+    Death,
+    Achievement,
+    Unlock,
+    Absorbed,
 }
