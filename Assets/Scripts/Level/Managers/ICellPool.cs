@@ -21,22 +21,19 @@
 
             var cell = queue.Dequeue();
             cell.gameObject.SetActive(true);
-            cd.size = cd.size;
+            cd.cellMass.size = cd.cellMass.size;
             cell.cData = cd;
             cell.Move(cd.position);
             cell.transform.position = cd.position;
             
             return cell;
         }
-
-
-
-
+        
         public Player CellGetPlayer(CellData cd)
         {
             player.gameObject.SetActive(true);
-            cd.size = cd.size;
             player.cData = cd;
+            player.playerData.defaultMassDefect = cd.cellMass.massDefect;
             player.Move(cd.position);
             player.transform.position = cd.position;
             return player;

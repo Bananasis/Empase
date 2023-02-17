@@ -28,18 +28,18 @@ public class Spawner : ScriptableObject
         var collision = borderShape switch
         {
             BorderShape.Square =>
-                -borderSize + cellData.size +
+                -borderSize + cellData.cellMass.size +
                 Mathf.Max(-cellData.position.x, cellData.position.x, -cellData.position.y, cellData.position.y),
             BorderShape.Circle =>
-                -borderSize + cellData.size + cellData.position.magnitude,
+                -borderSize + cellData.cellMass.size + cellData.position.magnitude,
             _ => throw new ArgumentOutOfRangeException(nameof(borderShape), borderShape, null)
         };
         if (collision > 0)
             switch (wallCollision)
             {
                 case CollisionHandling.Shrink:
-                    if (cellData.size - collision < 0.01) return false;
-                    cellData.size = (cellData.size - collision) * shrinkCompensate;
+                    if (cellData.cellMass.size - collision < 0.01) return false;
+                    cellData.cellMass.size = (cellData.cellMass.size - collision) * shrinkCompensate;
                     break;
 
                 case CollisionHandling.Destroy:
@@ -47,8 +47,8 @@ public class Spawner : ScriptableObject
                     break;
 
                 case CollisionHandling.Mixed:
-                    if (cellData.size - collision < minSize) return false;
-                    cellData.size = (cellData.size - collision) * shrinkCompensate;
+                    if (cellData.cellMass.size - collision < minSize) return false;
+                    cellData.cellMass.size = (cellData.cellMass.size - collision) * shrinkCompensate;
                     break;
 
                 default:
@@ -59,8 +59,8 @@ public class Spawner : ScriptableObject
         switch (cellCollision)
         {
             case CollisionHandling.Shrink:
-                if (cellData.size - collision < 0.01) return false;
-                cellData.size = (cellData.size - collision) * shrinkCompensate;
+                if (cellData.cellMass.size - collision < 0.01) return false;
+                cellData.cellMass.size = (cellData.cellMass.size - collision) * shrinkCompensate;
                 sct.Add(cellData);
                 return true;
             case CollisionHandling.Destroy:
@@ -68,8 +68,8 @@ public class Spawner : ScriptableObject
                 sct.Add(cellData);
                 return true;
             case CollisionHandling.Mixed:
-                if (cellData.size - collision < minSize) return false;
-                cellData.size = (cellData.size - collision) * shrinkCompensate;
+                if (cellData.cellMass.size - collision < minSize) return false;
+                cellData.cellMass.size = (cellData.cellMass.size - collision) * shrinkCompensate;
                 sct.Add(cellData);
                 return true;
             default:

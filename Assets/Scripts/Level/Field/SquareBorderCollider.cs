@@ -28,7 +28,7 @@ public class SquareBorderCollider : LevelBorderCollider
 
         var dist = Mathf.Max(Mathf.Abs(dir.x), Mathf.Abs(dir.y));
         if (dist > _radius - 1) cell.Die();
-        cell.SetSize(Mathf.Min(_radius - 1 - dist, cd.size));
+        cell.SetSize(Mathf.Min(_radius - 1 - dist, cd.cellMass.size));
     }
 
     protected override void Collide(Cell cell)
@@ -48,7 +48,7 @@ public class SquareBorderCollider : LevelBorderCollider
         }
 
 
-        var pushBack = vec * (_radius - 1 - cd.size) - dir;
+        var pushBack = vec * (_radius - 1 - cd.cellMass.size) - dir;
         var dot = Vector2.Dot(cd.velocity, vec);
         cell.cData.velocity -= 2 * dot * vec;
         cell.Move(cd.position - 2 * (Vector2) pushBack);

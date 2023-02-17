@@ -14,8 +14,6 @@ namespace Data.Spawners
         [SerializeField] private Vector2 rotationalCenter;
 
 
- 
-
         protected override CellData SetUpCell(BorderShape borderShape, float borderSize)
         {
             float orbitalPos;
@@ -28,8 +26,8 @@ namespace Data.Spawners
             var cellData = new CellData
             {
                 position = pos,
-                size = size,
-                velocity = orbitalSpeedMultiplier / Mathf.Sqrt(mag-orbitalSpeedShift) * new Vector2(dir.y, -dir.x)
+                cellMass = {size = size},
+                velocity = orbitalSpeedMultiplier / Mathf.Sqrt(mag - orbitalSpeedShift) * new Vector2(dir.y, -dir.x)
             };
             return cellData;
         }

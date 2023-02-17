@@ -14,7 +14,9 @@ public enum CellType
     Attractor,
     Repulsor,
     BlackHole,
-    GoTo
+    GoTo,
+    Pulsar,
+    Pulsoid
 }
 
 public partial class CellPool : MonoBehaviour

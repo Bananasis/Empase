@@ -12,7 +12,7 @@ namespace Data
         protected override bool CheckForVictory(float time)
         {
             return (abs ? _gCellData.sumAbsMass : _gCellData.sumMass) * massPercent <
-                   _gCellData.playerSize*_gCellData.playerSize*Mathf.PI;
+                   _gCellData.playerMass;
         }
     }
 }

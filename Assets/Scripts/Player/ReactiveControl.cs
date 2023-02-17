@@ -27,23 +27,23 @@ public class ReactiveControl : MonoBehaviour,IMouseAbility
         connection = _inputProvider.OnMouseClick.Subscribe((pos) =>
         {
             var cd = player.cData;
-            var mass = cd.mass * propulsionMass;
-            var newMass = cd.mass - mass;
+            var mass = cd.cellMass.mass * propulsionMass;
+            var newMass = cd.cellMass.mass - mass;
             var newSize = Mathf.Sqrt(newMass / Mathf.PI);
             var littleSize = Mathf.Sqrt(mass / Mathf.PI);
             player.SetSize(newSize);
             var dir = (pos - cd.position).normalized;
-            var vel = cd.velocity + dir * propulsion * cd.size;
+            var vel = cd.velocity + dir * propulsion * cd.cellMass.size;
             _cellPool.GetCell(
                 new CellData()
                 {
                     position = cd.position + dir * (newSize + littleSize),
                     velocity = vel,
                     type = cd.type,
-                    mass = mass
+                    cellMass = {mass = mass}
                 }
             );
-            player.cData.velocity += propulsion * cd.size * propulsionMass * -dir;
+            player.cData.velocity += propulsion * cd.cellMass.size * propulsionMass * -dir;
         });
     }
 

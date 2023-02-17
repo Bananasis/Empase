@@ -8,7 +8,6 @@ public class Player : Cell
     public PlayerData playerData;
     [Inject] private ICellPool _cellPool;
     [Inject] private IGlobalCellStats _gCellStats;
-    [Inject] private GameManager _gameManager;
     private readonly Dictionary<ShiftType, Behaviour> _shiftAbilities = new Dictionary<ShiftType, Behaviour>();
     private readonly Dictionary<PropulsionType, Behaviour> _mouseAbilities = new Dictionary<PropulsionType, Behaviour>();
 
@@ -72,7 +71,7 @@ public class Player : Cell
     public override void UpdatePropertyBlock()
     {
         sr.GetPropertyBlock(mpb);
-        mpb.SetFloat(Dencity, Mathf.Sqrt(cData.size));
+        mpb.SetFloat(Dencity, Mathf.Sqrt(cData.cellMass.size));
         mpb.SetFloat(Id, (float) id % 1000);
         mpb.SetFloat(Weight, 0);
         sr.SetPropertyBlock(mpb);
@@ -101,6 +100,7 @@ public struct PlayerData
     public PropulsionType propulsionType;
     public Vector2 acceleration;
     public float timeDialition;
+    public float defaultMassDefect;
 }
 
 public enum ShiftType

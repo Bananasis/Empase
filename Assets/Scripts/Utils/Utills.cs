@@ -183,22 +183,22 @@ public static class Extensions
     
     public static float Intersection(this CellData cd, CellData other)
     {
-        return Mathf.Max(0, Mathf.Min(other.size + cd.size - (other.position - cd.position).magnitude, cd.size));
+        return Mathf.Max(0, Mathf.Min(other.cellMass.size + cd.cellMass.size - (other.position - cd.position).magnitude, cd.cellMass.size));
     }
 
     public static float Intersection(this CellData cd, Rect rect)
     {
-        var xDist = Mathf.Min(cd.size + cd.position.x - rect.min.x, cd.size - cd.position.x + rect.max.x);
-        var yDist = Mathf.Min(cd.size + cd.position.y - rect.min.y, cd.size - cd.position.y + rect.max.y);
+        var xDist = Mathf.Min(cd.cellMass.size + cd.position.x - rect.min.x, cd.cellMass.size - cd.position.x + rect.max.x);
+        var yDist = Mathf.Min(cd.cellMass.size + cd.position.y - rect.min.y, cd.cellMass.size - cd.position.y + rect.max.y);
         if (yDist <= 0 || xDist <= 0) return 0;
-        return Mathf.Min(cd.size, Mathf.Sqrt(yDist * yDist + xDist * xDist));
+        return Mathf.Min(cd.cellMass.size, Mathf.Sqrt(yDist * yDist + xDist * xDist));
     }
 
     public static int SubTree(this CellData cd, Rect rect)
     {
         var middle = (rect.max + rect.min) / 2;
         var dir = cd.position - middle;
-        if (Mathf.Abs(dir.x) < cd.size || Mathf.Abs(dir.y) < cd.size) return -1;
+        if (Mathf.Abs(dir.x) < cd.cellMass.size || Mathf.Abs(dir.y) < cd.cellMass.size) return -1;
         if (dir.y < 0)
             return dir.x < 0 ? 0 : 1;
         return dir.x < 0 ? 2 : 3;

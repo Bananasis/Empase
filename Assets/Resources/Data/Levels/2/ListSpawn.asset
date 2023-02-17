@@ -21,6 +21,7 @@ MonoBehaviour:
   - position: {x: 5, y: 0}
     velocity: {x: 0, y: 0}
     pinned: 0
-    _size: 2
-    _mass: 0
+    cellMass:
+      _mass: 10
+      _massDefect: 0
     type: 0

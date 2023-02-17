@@ -138,54 +138,54 @@ public class CellCollider : MonoBehaviour
             new Color(0f, 0.5f, 1), Time.deltaTime);
     }
 
-    public virtual void Collidelegacy(Cell cell)
-    {
-        var self = _cell.cData;
-        var other = cell.cData;
-        var sMass = self.mass;
-        var oMass = other.mass;
-        if (oMass == 0 || sMass == 0) return;
-        if (oMass > sMass) return;
-        if (self.massMultiplier * other.massMultiplier < 0)
-        {
-            CollideNegativeMass(cell, sMass, oMass);
-            //Rebounce(cell);
-            return;
-        }
-
-        var distance = (self.position - other.position).magnitude;
-        var intersection = self.size + other.size - distance;
-        if (intersection < 0) return;
-        var tMass = oMass + sMass;
-        var delta = Mathf.Sqrt(tMass / (2 * Mathf.PI) - distance * distance / 4);
-        var r1 = distance / 2 + delta;
-        if (r1 > distance)
-        {
-            _cell.SetMass(tMass);
-            cell.Die();
-        }
-        else
-        {
-            _cell.SetSize(r1);
-            cell.SetSize(distance - r1);
-        }
-
-        var newMass = _cell.cData.mass;
-        var deltaMass = newMass - sMass;
-        if (!self.pinned)
-            _cell.cData.velocity = (self.velocity * sMass +
-                                    other.velocity * deltaMass * self.inertiaMultiplier * other.inertiaMultiplier) /
-                                   newMass;
-    }
+    // public virtual void Collidelegacy(Cell cell)
+    // {
+    //     var self = _cell.cData;
+    //     var other = cell.cData;
+    //     var sMass = self.mass;
+    //     var oMass = other.mass;
+    //     if (oMass == 0 || sMass == 0) return;
+    //     if (oMass > sMass) return;
+    //     if (self.massMultiplier * other.massMultiplier < 0)
+    //     {
+    //         CollideNegativeMass(cell, sMass, oMass);
+    //         //Rebounce(cell);
+    //         return;
+    //     }
+    //
+    //     var distance = (self.position - other.position).magnitude;
+    //     var intersection = self.size + other.size - distance;
+    //     if (intersection < 0) return;
+    //     var tMass = oMass + sMass;
+    //     var delta = Mathf.Sqrt(tMass / (2 * Mathf.PI) - distance * distance / 4);
+    //     var r1 = distance / 2 + delta;
+    //     if (r1 > distance)
+    //     {
+    //         _cell.SetMass(tMass);
+    //         cell.Die();
+    //     }
+    //     else
+    //     {
+    //         _cell.SetSize(r1);
+    //         cell.SetSize(distance - r1);
+    //     }
+    //
+    //     var newMass = _cell.cData.mass;
+    //     var deltaMass = newMass - sMass;
+    //     if (!self.pinned)
+    //         _cell.cData.velocity = (self.velocity * sMass +
+    //                                 other.velocity * deltaMass * self.inertiaMultiplier * other.inertiaMultiplier) /
+    //                                newMass;
+    // }
 
     public virtual void Collide(Cell cell)
     {
         var self = _cell.cData;
         var other = cell.cData;
-        var sMass = self.mass;
-        var oMass = other.mass;
+        var sMass = self.cellMass.mass;
+        var oMass = other.cellMass.mass;
         if (oMass == 0 || sMass == 0) return;
-        if (oMass > sMass) return;
+        if (other.cellMass.size > self.cellMass.size) return;
         if (self.massMultiplier * other.massMultiplier < 0)
         {
             CollideNegativeMass(cell, sMass, oMass);
@@ -194,12 +194,12 @@ public class CellCollider : MonoBehaviour
         }
 
         var distance = (self.position - other.position).magnitude;
-        var intersection = self.size + other.size - distance;
+        var intersection = self.cellMass.size + other.cellMass.size - distance;
         if (intersection < 0) return;
 
         var massDefect = _gCellData.massDefect;
         var tMass = oMass * massDefect + sMass;
-        var r1 = CalculateCollision(distance, massDefect, tMass);
+        var r1 = CalculateCollision(distance, self.cellMass.massDefect, other.cellMass.massDefect * massDefect, tMass);
         if (r1 > distance)
         {
             _cell.SetMass(tMass); //todo
@@ -214,18 +214,25 @@ public class CellCollider : MonoBehaviour
         }
 
         if (self.pinned) return;
-        var newMass = _cell.cData.mass;
-        var deltaMass = newMass - sMass;
+        var newOMass = cell.cData.cellMass.mass;
+        var deltaOMass = oMass - newOMass;
+        var newSMass = _cell.cData.cellMass.mass;
+        var deltaSMass = sMass - newSMass;
         _cell.cData.velocity = (self.velocity * sMass +
-                                other.velocity * deltaMass * self.inertiaMultiplier * other.inertiaMultiplier) /
-                               newMass;
+                                other.velocity * deltaOMass * self.inertiaMultiplier * other.inertiaMultiplier) /
+                               newSMass;
+        if (deltaSMass < 0 || newOMass < 0) return;
+        cell.cData.velocity = (other.velocity * oMass +
+                               self.velocity * deltaSMass * other.inertiaMultiplier * self.inertiaMultiplier) /
+                              newOMass;
     }
 
-    public float CalculateCollision(float dist, float masDefect, float mass)
+    public float CalculateCollision(float dist, float selfMasDefect, float otherMassDefect, float mass)
     {
-        var gap = Mathf.Sqrt(mass * (masDefect + 1) / (Mathf.PI * masDefect));
-        return (Mathf.Sqrt(mass * (masDefect + 1) / Mathf.PI - dist * dist * masDefect) + dist * masDefect) /
-               (masDefect + 1);
+        // var gap = Mathf.Sqrt(mass * (masDefect + 1) / (Mathf.PI * masDefect));
+        return (Mathf.Sqrt(mass * (selfMasDefect + otherMassDefect) / Mathf.PI -
+                           dist * dist * otherMassDefect * selfMasDefect) + dist * otherMassDefect) /
+               (selfMasDefect + otherMassDefect);
     }
 
 
@@ -235,7 +242,7 @@ public class CellCollider : MonoBehaviour
         var other = cell.cData;
         var cMass = sMass - oMass;
         var distance = (self.position - other.position).magnitude;
-        var intersection = self.size + other.size - distance;
+        var intersection = self.cellMass.size + other.cellMass.size - distance;
         if (intersection < 0) return;
 
         var r1 = (cMass / Mathf.PI + distance * distance) / (2 * distance);

@@ -14,7 +14,7 @@ public class OnDireSituation : LevelEvent
         base.Activate();
         connections.Add(_cellPool.Player.OnSizeChange.Subscribe((sizeMass) =>
         {
-            if (sizeMass.Item1 > _gCellData.maxPlayerSize * threshold) return;
+            if (sizeMass.Item2 > _gCellData.maxPlayerMass * threshold) return;
             OnEvent.Invoke();
             Deactivate();
         }));

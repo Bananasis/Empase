@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ab035296ea7cd24e885ca34f4b088c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cellManager: {fileID: 0}
+  _cellPool: {fileID: 0}
   cData:
     position: {x: 0, y: 0}
     velocity: {x: 0, y: 0}
@@ -162,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770faf4e4b9560d4f9df4d8cea96badb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gCellData: {fileID: 0}
 --- !u!114 &1386902422694250767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d0d54a04f4cb8545908cf5263242b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gravityManager: {fileID: 0}
   massMultiplier: 1
 --- !u!114 &6834486068790036923
 MonoBehaviour:
@@ -187,6 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eceaf9ef5d6aa214db0addfaa90b788b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timeDialitionManager: {fileID: 0}
   strength: 0.5
   radiusMultiplier: 0.3
 --- !u!114 &2683255277448272902

@@ -33,7 +33,7 @@ public class GravityMassDot : RegistryEntity
     {
         var vec = position - cData.position;
         var distSqr = vec.sqrMagnitude - shift;
-        if (distSqr < cData.size) return Vector2.zero;
+        if (distSqr < cData.cellMass.size) return Vector2.zero;
         return mass / distSqr * vec.normalized;
     }
 }

@@ -69,6 +69,6 @@ public class GoToCollider : MonoBehaviour
     {
         reached = false;
         var dist = (player.cData.position - _cell.cData.position).magnitude;
-        if (dist < player.cData.size) reached = true;
+        if (dist < player.cData.cellMass.size) reached = true;
     }
 }

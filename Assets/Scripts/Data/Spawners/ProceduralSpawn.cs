@@ -45,7 +45,7 @@ namespace Data.Spawners
             var cellData = new CellData
             {
                 position = pos,
-                size = size
+                cellMass = {size = size}
             };
             return cellData;
         }

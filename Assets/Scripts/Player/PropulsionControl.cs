@@ -35,7 +35,7 @@ public class PropulsionControl : MonoBehaviour,IMouseAbility
             }
 
             var dir = (player.cData.position - vector2).normalized;
-            player.playerData.acceleration = dir * propulsion * player.cData.size;
+            player.playerData.acceleration = dir * propulsion * player.cData.cellMass.size;
         });
     }
 

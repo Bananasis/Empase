@@ -33,8 +33,8 @@ public class PredictionController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        lr.startWidth = cell.cData.size*widthMultiplier;
-        lr.endWidth = cell.cData.size*widthMultiplier;
+        lr.startWidth = cell.cData.cellMass.size*widthMultiplier;
+        lr.endWidth = cell.cData.cellMass.size*widthMultiplier;
         var pos = transform.position;
         dots[0] = pos;
         var timePassed = 0f;
@@ -63,7 +63,7 @@ public class PredictionController : MonoBehaviour
                 {
                     var dir = (Vector3) attractor.position - pos;
                     var dist = dir.magnitude;
-                    if (dist < cell.cData.size) dist = cell.cData.size;
+                    if (dist < cell.cData.cellMass.size) dist = cell.cData.cellMass.size;
                     vel += dir.normalized * deltaTime * attractor.mass / (dist * dist);
                 }
 

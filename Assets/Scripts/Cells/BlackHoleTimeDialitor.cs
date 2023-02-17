@@ -17,8 +17,8 @@ public class BlackHoleTimeDialitor : TimeDialator
     {
         var vec = cell.cData.position - cdata.position;
         var dist = vec.magnitude;
-        if (dist < cell.cData.size || dist*radiusMultiplier > cell.cData.size) return 1;
-        return 1/(1+strength*(cell.cData.size-dist*radiusMultiplier));
+        if (dist < cell.cData.cellMass.size || dist*radiusMultiplier > cell.cData.cellMass.size) return 1;
+        return 1/(1+strength*(cell.cData.cellMass.size-dist*radiusMultiplier));
     }
     
     

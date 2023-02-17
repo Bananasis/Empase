@@ -27,23 +27,16 @@ public class SizeControl : MonoBehaviour,IShiftAbility
     private void OnEnable()
     {
         scale = 1;
-        lastSize = player.cData.mass;
+        lastSize = player.cData.cellMass.mass;
 
         connections.Add(_inputProvider.OnScrollShift.Subscribe((delta) =>
             {
-                var curScale = scale;
-                scale = Mathf.Clamp(scale * (1 + delta.y / 5), minScale, maxScale);
-                player.cData.mass *= scale / curScale;
-                lastSize = player.cData.mass;
+                scale = Mathf.Clamp(scale * (1 - delta.y / 5), minScale, maxScale);
+                player.cData.cellMass.massDefect = scale * player.playerData.defaultMassDefect;
+                player.OnSizeChange.Invoke((player.cData.cellMass.size,player.cData.cellMass.mass));
             }
         ));
-        connections.Add(player.OnSizeChange.Subscribe((s) =>
-        {
-            var deltaMass = player.cData.mass - lastSize;
-            deltaMass = deltaMass > 0 ? deltaMass * (scale - 1) : 0;
-            player.cData.mass += deltaMass;
-            lastSize = player.cData.mass;
-        }));
+
     }
 
     private void OnDisable()

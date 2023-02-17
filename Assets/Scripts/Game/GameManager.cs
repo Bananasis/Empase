@@ -20,10 +20,12 @@ public partial class GameManager : MonoBehaviour
     public PlayerPrefInt CurrentLevel;
     public PlayerPrefInt LastOpenZone;
     public PlayerPrefInt CurZone;
+    public PlayerPrefFloat DefiniteBorderAlpha;
 
 
     public void Awake()
     {
+        DefiniteBorderAlpha = new PlayerPrefFloat("DefiniteBorder", 1f);
         MasterSoundOn = new PlayerPrefBool("MasterSoundON", true);
         MasterSoundVolume = new PlayerPrefFloat("MasterSoundVolume", 0.4f);
         SoundOn = new PlayerPrefDictionary<TrackType, bool>("SoundOn", true,

@@ -8,7 +8,7 @@ public class BlackHoleGravityMassDot : SunGravityMassDot
     {
         get
         {
-            var size = cell.cData.size;
+            var size = cell.cData.cellMass.size;
             return size * size;
         }
     }
