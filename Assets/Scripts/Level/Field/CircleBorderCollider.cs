@@ -29,6 +29,7 @@ public class CircleBorderCollider : LevelBorderCollider
     {
         var cd = cell.cData;
         var dist = ( (Vector2)transform.position - cd.position).magnitude;
+        if (_radius - 1 > cd.cellMass.size + dist) return;
         if (dist > _radius-1) cell.Die();
         cell.SetSize( Mathf.Min(_radius-1 - dist,cd.cellMass.size))  ;
     }
@@ -37,6 +38,7 @@ public class CircleBorderCollider : LevelBorderCollider
         var cd = cell.cData;
         var pos = (Vector2)transform.position - cd.position;
         var vec = pos.normalized;
+        if (_radius - 1 > cd.cellMass.size + pos.magnitude) return;
         var pushBack = vec * (_radius - 1 - cd.cellMass.size) - pos;
         var dot = Vector2.Dot(cd.velocity, vec);
         cell.cData.velocity -= 2 * dot * vec;

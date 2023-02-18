@@ -14,7 +14,8 @@ public class Spawner : ScriptableObject
     [SerializeField] private CollisionHandling cellCollision;
     [SerializeField] private float shrinkCompensate = 0.99f;
     [SerializeField] protected float minSize;
-  
+    [SerializeField] private float gapMultiplier = 1;
+
 
     public virtual List<CellData> Spawn(SimpleCollisionTree sct, float borderSize, BorderShape borderShape)
     {
@@ -38,17 +39,18 @@ public class Spawner : ScriptableObject
             switch (wallCollision)
             {
                 case CollisionHandling.Shrink:
-                    if (cellData.cellMass.size - collision < 0.01) return false;
-                    cellData.cellMass.size = (cellData.cellMass.size - collision) * shrinkCompensate;
+                    if ((cellData.cellMass.size - collision) * gapMultiplier < 0.01) return false;
+                    cellData.cellMass.size = (cellData.cellMass.size - collision) * shrinkCompensate * gapMultiplier;
                     break;
 
                 case CollisionHandling.Destroy:
+                    cellData.cellMass.size *= gapMultiplier;
                     if (collision > 0) return false;
                     break;
 
                 case CollisionHandling.Mixed:
-                    if (cellData.cellMass.size - collision < minSize) return false;
-                    cellData.cellMass.size = (cellData.cellMass.size - collision) * shrinkCompensate;
+                    if ((cellData.cellMass.size - collision) * gapMultiplier < minSize) return false;
+                    cellData.cellMass.size = (cellData.cellMass.size - collision) * shrinkCompensate * gapMultiplier;
                     break;
 
                 default:

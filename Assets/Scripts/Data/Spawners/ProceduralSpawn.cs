@@ -23,6 +23,7 @@ namespace Data.Spawners
             {
                 var cellData = SetUpCell(borderShape, borderSize);
                 cellData.type = possibleTypes[random.Next(possibleTypes.Count)];
+                
                 if (TrySpawn(sct, borderSize, borderShape, ref cellData))
                 {
                     spawned.Add(cellData);

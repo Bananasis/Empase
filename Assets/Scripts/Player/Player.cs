@@ -25,6 +25,7 @@ public class Player : Cell
                     _shiftAbilities[shift.type] = component;
                     break;
                 case IMouseAbility propulsion:
+                    propulsion._inputProvider = _inputProvider;
                     _mouseAbilities[propulsion.type] = component;
                     break;
             }
