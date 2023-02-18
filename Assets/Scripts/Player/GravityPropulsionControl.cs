@@ -7,8 +7,8 @@ using Zenject;
 public class GravityPropulsionControl : GravityMassDot,IMouseAbility
 {
     private Player player;
+    public IInputProvider _inputProvider { get; set; }
     public PropulsionType type => PropulsionType.GravityPropulsion;
-    [Inject] private IInputProvider _inputProvider;
     [SerializeField] private float propulsion = 1;
     [SerializeField] private float acceleration = 0;
     [SerializeField] private Vector2 _pos;

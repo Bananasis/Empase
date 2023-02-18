@@ -37,6 +37,7 @@ public partial class LevelManager : MonoBehaviour
     private List<CellData> cells;
     private List<CellData> targets;
     private Level _lastLevel;
+    public float time => _timePassed;
 
 
     private void Awake()

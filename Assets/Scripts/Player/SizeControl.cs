@@ -7,11 +7,11 @@ using Zenject;
 [RequireComponent(typeof(Player))]
 public class SizeControl : MonoBehaviour,IShiftAbility
 {
+    public IInputProvider _inputProvider { get; set; }
     public ShiftType type => ShiftType.Size;
     [SerializeField] private float minScale = 0.5f;
     [SerializeField] private float maxScale = 1.5f;
     [SerializeField] private float scale = 1;
-    [Inject] private IInputProvider _inputProvider;
     private float lastSize = 1;
 
     //private float mass;

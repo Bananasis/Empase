@@ -9,8 +9,9 @@ public class PersonalTimeControl : MonoBehaviour,IShiftAbility
 {
     [SerializeField] private float minScale = 0.5f;
     [SerializeField] private float maxScale = 2f;
-    [Inject] private IInputProvider _inputProvider;
+    
     private Player player;
+    public IInputProvider _inputProvider { get; set; }
     public ShiftType type => ShiftType.PersonalTime;
     private void Awake()
     {

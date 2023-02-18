@@ -7,9 +7,10 @@ using Zenject;
 public class PropulsionControl : MonoBehaviour,IMouseAbility
 {
     private Player player;
-    [Inject] private IInputProvider _inputProvider;
+
     [SerializeField] private float propulsion = 1;
     private bool pressed;
+    public IInputProvider _inputProvider { get; set; }
     public PropulsionType type => PropulsionType.Propulsion;
     private void Awake()
     {

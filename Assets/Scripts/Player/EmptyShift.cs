@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class EmptyShift : MonoBehaviour,IShiftAbility
 { 
+    public IInputProvider _inputProvider { get; set; }
     public ShiftType type => ShiftType.None;
 }

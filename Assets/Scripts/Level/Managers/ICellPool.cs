@@ -20,22 +20,20 @@
             }
 
             var cell = queue.Dequeue();
-            cell.gameObject.SetActive(true);
-            cd.cellMass.size = cd.cellMass.size;
             cell.cData = cd;
-            cell.Move(cd.position);
+            cell.gameObject.SetActive(true);
             cell.transform.position = cd.position;
-            
+            cell.Move(cd.position);
             return cell;
         }
         
         public Player CellGetPlayer(CellData cd)
         {
-            player.gameObject.SetActive(true);
             player.cData = cd;
             player.playerData.defaultMassDefect = cd.cellMass.massDefect;
-            player.Move(cd.position);
+            player.gameObject.SetActive(true);
             player.transform.position = cd.position;
+            player.Move(cd.position);
             return player;
         }
 

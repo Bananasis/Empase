@@ -7,8 +7,8 @@ using Zenject;
 [RequireComponent(typeof(Player))]
 public class ReactiveControl : MonoBehaviour,IMouseAbility
 {
+    public IInputProvider _inputProvider { get; set; }
     public PropulsionType type => PropulsionType.ReactivePropulsion;
-    [Inject] private IInputProvider _inputProvider;
     private Player player;
     [Inject] private ICellPool _cellPool;
     [SerializeField] private float propulsion = 1;

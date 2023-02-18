@@ -8,8 +8,8 @@ using Zenject;
 [RequireComponent(typeof(Player))]
 public class TimeControl : TimeDialator, IShiftAbility
 {
+    public IInputProvider _inputProvider { get; set; }
     public ShiftType type => ShiftType.Time;
-    [Inject] private IInputProvider _inputProvider;
     [SerializeField] private float minScale = 0.25f;
     [SerializeField] private float maxScale = 4f;
     [SerializeField] private float dialation = 1;

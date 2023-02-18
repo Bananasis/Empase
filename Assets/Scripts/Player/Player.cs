@@ -8,6 +8,7 @@ public class Player : Cell
     public PlayerData playerData;
     [Inject] private ICellPool _cellPool;
     [Inject] private IGlobalCellStats _gCellStats;
+    [Inject] private IInputProvider _inputProvider;
     private readonly Dictionary<ShiftType, Behaviour> _shiftAbilities = new Dictionary<ShiftType, Behaviour>();
     private readonly Dictionary<PropulsionType, Behaviour> _mouseAbilities = new Dictionary<PropulsionType, Behaviour>();
 
@@ -20,6 +21,7 @@ public class Player : Cell
             switch (component)
             {
                 case IShiftAbility shift:
+                    shift._inputProvider = _inputProvider;
                     _shiftAbilities[shift.type] = component;
                     break;
                 case IMouseAbility propulsion:
