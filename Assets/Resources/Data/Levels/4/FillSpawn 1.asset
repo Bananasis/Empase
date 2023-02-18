@@ -10,40 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62ee1cfc1c604d268d8790b84ecc0156, type: 3}
-  m_Name: FillSpawn
+  m_Name: FillSpawn 1
   m_EditorClassIdentifier: 
   isLevelGoal: 0
-  wallCollision: 1
-  cellCollision: 1
-  shrinkCompensate: 1
-  minSize: 0.1
-  gapMultiplier: 0.62
+  wallCollision: 2
+  cellCollision: 2
+  shrinkCompensate: 0.99
+  minSize: 0.2
+  gapMultiplier: 0.95
   massDistribution:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.002357483
-      value: 0.5102539
+      time: 0
+      value: 0
       inSlope: 0
-      outSlope: 0
+      outSlope: 1
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.54515
-      value: 0.82509327
-      inSlope: 0.9999999
-      outSlope: 0.9999999
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -55,10 +46,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.00078582764
-      value: 0.50671387
+      time: 0
+      value: 0
       inSlope: 0
-      outSlope: 0
+      outSlope: 1
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -67,7 +58,7 @@ MonoBehaviour:
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -75,9 +66,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxSize: 2.7
-  maxIterations: 3064
-  number: 6575
+  maxSize: 2
+  maxIterations: 5000
+  number: 5000
   possibleTypes: 00000000
   sizeSpeed:
     serializedVersion: 2
